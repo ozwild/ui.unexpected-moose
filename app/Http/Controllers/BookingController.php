@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Booking;
+use App\Http\Traits\ControllerHelper;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
+    use ControllerHelper;
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +19,7 @@ class BookingController extends Controller
     {
         $bookings = Booking::orderBy('created_at', 'desc')
             ->with('comments', 'asset', 'user')
-            ->get();
+            ->paginate(10);
         return response()->json($bookings);
     }
 
@@ -26,10 +28,17 @@ class BookingController extends Controller
      *
      * @param Request $request
      * @return JsonResponse
+     * @throws
      */
     public function store(Request $request)
     {
-        $booking = Booking::create($request->all());
+        $this->validate($request, [
+            'asset_id' => 'required|exists:assets,id',
+            'user_id' => 'required|exists:users,id',
+            'from' => 'required|date',
+            'to' => 'required|date'
+        ]);
+        $booking = Booking::create($this->filterRequest($request)->toArray());
         return response()->json($booking);
     }
 
@@ -50,10 +59,17 @@ class BookingController extends Controller
      * @param Request $request
      * @param Booking $booking
      * @return JsonResponse
+     * @throws
      */
     public function update(Request $request, Booking $booking)
     {
-        $booking->update($request->all());
+        $this->validate($request, [
+            'asset_id' => 'required|exists:assets,id',
+            'user_id' => 'required|exists:users,id',
+            'from' => 'required|date',
+            'to' => 'required|date'
+        ]);
+        $booking->update($this->filterRequest($request)->toArray());
         return response()->json($booking);
     }
 

@@ -13,50 +13,59 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')
+->group(function(){
+
+    Route::prefix('users')
+        ->group(function () {
+
+            Route::get('/', 'UserController@index');
+            Route::post('/', 'UserController@store');
+            Route::get('/{user}', 'UserController@show');
+            Route::put('/{user}', 'UserController@update');
+            Route::delete('/{user}', 'UserController@destroy');
+
+        });
+
+    Route::prefix('assets')
+        ->group(function () {
+
+            Route::get('/', 'AssetController@index');
+            Route::post('/', 'AssetController@store');
+            Route::get('/{asset}', 'AssetController@show');
+            Route::put('/{asset}', 'AssetController@update');
+            Route::delete('/{asset}', 'AssetController@destroy');
+
+        });
+
+    Route::prefix('requests')
+        ->group(function () {
+
+            Route::get('/', 'BookingRequestController@index');
+            Route::post('/', 'BookingRequestController@store');
+            Route::get('/{bookingRequest}', 'BookingRequestController@show');
+            Route::put('/{bookingRequest}', 'BookingRequestController@update');
+            Route::delete('/{bookingRequest}', 'BookingRequestController@destroy');
+
+        });
+
+    Route::prefix('bookings')
+        ->group(function () {
+
+            Route::get('/', 'BookingController@index');
+            Route::post('/', 'BookingController@store');
+            Route::get('/{booking}', 'BookingController@show');
+            Route::put('/{booking}', 'BookingController@update');
+            Route::delete('/{booking}', 'BookingController@destroy');
+
+        });
+
 });
 
-Route::prefix('users')
+Route::prefix('auth')
     ->group(function () {
 
-        Route::get('/', 'UserController@index');
-        Route::post('/', 'UserController@store');
-        Route::get('/{user}', 'UserController@show');
-        Route::put('/{user}', 'UserController@update');
-        Route::delete('/{user}', 'UserController@destroy');
-
-    });
-
-Route::prefix('assets')
-    ->group(function () {
-
-        Route::get('/', 'AssetController@index');
-        Route::post('/', 'AssetController@store');
-        Route::get('/{asset}', 'AssetController@show');
-        Route::put('/{asset}', 'AssetController@update');
-        Route::delete('/{asset}', 'AssetController@destroy');
-
-    });
-
-Route::prefix('requests')
-    ->group(function () {
-
-        Route::get('/', 'BookingRequestController@index');
-        Route::post('/', 'BookingRequestController@store');
-        Route::get('/{bookingRequest}', 'BookingRequestController@show');
-        Route::put('/{bookingRequest}', 'BookingRequestController@update');
-        Route::delete('/{bookingRequest}', 'BookingRequestController@destroy');
-
-    });
-
-Route::prefix('bookings')
-    ->group(function () {
-
-        Route::get('/', 'BookingController@index');
-        Route::post('/', 'BookingController@store');
-        Route::get('/{booking}', 'BookingController@show');
-        Route::put('/{booking}', 'BookingController@update');
-        Route::delete('/{booking}', 'BookingController@destroy');
+        Route::post('login', 'JWTController@getToken');
+        Route::post('logout', 'JWTController@logout');
 
     });

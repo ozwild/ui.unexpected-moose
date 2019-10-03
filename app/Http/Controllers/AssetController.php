@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Asset;
+use App\Http\Traits\ControllerHelper;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
 class AssetController extends Controller
 {
+    use ControllerHelper;
+
     /**
      * Display a listing of the resource.
      *
@@ -15,13 +18,15 @@ class AssetController extends Controller
      */
     public function index()
     {
-        $assets = Asset::orderBy('created_at', 'desc')
-            ->with(['requests', 'bookings', 'comments'])
+
+        $requests = Asset::orderBy('created_at', 'desc')
+            ->with(['requests', 'bookings', 'comments', 'requests.comments', 'bookings.comments'])
             ->withCount(['requests' => function ($query) {
                 $query->where('is_pending', TRUE);
             }])
-            ->get();
-        return response()->json($assets);
+            ->paginate(10);
+
+        return response()->json($requests);
     }
 
     /**
@@ -29,10 +34,17 @@ class AssetController extends Controller
      *
      * @param Request $request
      * @return JsonResponse
+     * @throws
      */
     public function store(Request $request)
     {
-        $asset = Asset::create($request->all());
+        $this->validate($request, [
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'picture' => 'nullable|url',
+        ]);
+
+        $asset = Asset::create($this->filterRequest($request)->toArray());
         return response()->json($asset);
     }
 
@@ -53,10 +65,17 @@ class AssetController extends Controller
      * @param Request $request
      * @param Asset $asset
      * @return JsonResponse
+     * @throws
      */
     public function update(Request $request, Asset $asset)
     {
-        $asset->update($request->all());
+        $this->validate($request, [
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'picture' => 'nullable|url',
+        ]);
+
+        $asset->update($this->filterRequest($request)->toArray());
         return response()->json($asset);
     }
 
@@ -72,4 +91,15 @@ class AssetController extends Controller
         $asset->delete();
         return response()->json();
     }
+
+    /**
+     * @param Asset $asset
+     * @return JsonResponse
+     */
+    public function restore(Asset $asset)
+    {
+        $asset->restore();
+        return response()->json();
+    }
+
 }

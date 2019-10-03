@@ -17,6 +17,8 @@ class CreateAssetsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('description');
+            $table->string('picture');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

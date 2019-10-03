@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\BookingRequest;
+use App\Http\Traits\ControllerHelper;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class BookingRequestController extends Controller
 {
+    use ControllerHelper;
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +20,7 @@ class BookingRequestController extends Controller
     {
         $requests = BookingRequest::orderBy('created_at', 'desc')
             ->with('comments', 'asset', 'user')
-            ->get();
+            ->paginate(10);
         return response()->json($requests);
     }
 
@@ -26,11 +29,20 @@ class BookingRequestController extends Controller
      *
      * @param Request $request
      * @return JsonResponse
+     * @throws
      */
     public function store(Request $request)
     {
-        $bookingRequests = BookingRequest::create($request->all());
-        return response()->json($bookingRequests);
+        $this->validate($request, [
+            'asset_id' => 'required|exists:assets,id',
+            'user_id' => 'required|exists:users,id',
+            'from' => 'required|date',
+            'to' => 'required|date',
+            'is_pending'=>'boolean'
+        ]);
+
+        $bookingRequest = BookingRequest::create($this->filterRequest($request)->toArray());
+        return response()->json($bookingRequest);
     }
 
     /**
@@ -50,10 +62,18 @@ class BookingRequestController extends Controller
      * @param Request $request
      * @param BookingRequest $bookingRequest
      * @return JsonResponse
+     * @throws
      */
     public function update(Request $request, BookingRequest $bookingRequest)
     {
-        $bookingRequest->update($request->all());
+        $this->validate($request, [
+            'asset_id' => 'required|exists:assets,id',
+            'user_id' => 'required|exists:users,id',
+            'from' => 'required|date',
+            'to' => 'required|date',
+            'is_pending'=>'boolean'
+        ]);
+        $bookingRequest->update($this->filterRequest($request)->toArray());
         return response()->json($bookingRequest);
     }
 

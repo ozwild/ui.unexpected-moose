@@ -1,0 +1,55 @@
+
+body {
+
+  &.app {
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  }
+
+  &.login {
+    background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+  }
+
+  &.not-found {
+    background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+  }
+
+  &.not-authenticated {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 0%, rgba(0, 0, 0, 0.15) 100%), radial-gradient(at top center, rgba(255, 255, 255, 0.40) 0%, rgba(0, 0, 0, 0.40) 120%) #989898;
+    background-blend-mode: multiply, multiply;
+  }
+
+  &.unauthorized {
+    background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%);
+  }
+
+}
+body.app{
+  main {
+    margin-top: 4em;
+  }
+}
+
+.ui.form {
+
+  .fields .field {
+    position: relative;
+  }
+
+  .ui.pointing.label {
+    position: absolute;
+    right: 12px;
+    z-index: 1;
+
+    &.below {
+      bottom: 18px;
+    }
+
+    &.above {
+      top: 63px;
+    }
+
+  }
+
+}
+
+

@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Traits\ControllerHelper;
 use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    use ControllerHelper;
+
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +22,7 @@ class UserController extends Controller
             ->withCount(['requests' => function ($query) {
                 $query->where('is_pending', TRUE);
             }])
-            ->get();
+            ->paginate(10);
         return response()->json($requests);
     }
 
@@ -28,17 +31,27 @@ class UserController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
+     * @throws
      */
     public function store(Request $request)
     {
-        $user = User::create($request->all());
+        $this->validate($request, [
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|regex:/[0-9]{4}-[0-9]{4}/',
+            'avatar' => 'nullable|url',
+        ]);
+
+        $user = new User($this->filterRequest($request)->toArray());
+        $user->password = \Hash::make(uniqid());
+        $user->save();
         return response()->json($user);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -50,24 +63,43 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param User $user
      * @return \Illuminate\Http\Response
+     * @throws
      */
     public function update(Request $request, User $user)
     {
-        $user->update($request->all());
+        $this->validate($request, [
+            'name' => 'required|string',
+            'avatar' => 'nullable|url',
+            'phone' => 'required|regex:/[0-9]{4}-[0-9]{4}/',
+            'email' => 'required|email|unique:users,email,' . $user->id
+        ]);
+
+        $user->update($this->filterRequest($request)->toArray());
         return response()->json($user);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param User $user
      * @return \Illuminate\Http\Response
+     * @throws
      */
-    public function destroy($user)
+    public function destroy(User $user)
     {
         $user->delete();
+        return response()->json();
+    }
+
+    /**
+     * @param User $user
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function restore(User $user)
+    {
+        $user->restore();
         return response()->json();
     }
 }

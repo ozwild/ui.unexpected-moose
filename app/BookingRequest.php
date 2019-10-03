@@ -8,6 +8,10 @@ class BookingRequest extends Model
 {
     protected $fillable = ['asset_id', 'user_id', 'from', 'to', 'is_pending'];
 
+    public $timestamps = [
+        'from', 'to'
+    ];
+
     private function deriveBooking($comments = "", $commentTitle = "")
     {
         $booking = new Booking();

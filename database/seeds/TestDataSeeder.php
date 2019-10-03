@@ -59,7 +59,8 @@ class TestDataSeeder extends Seeder
         $faker = Factory::create();
         return Asset::create([
             "name" => $faker->words(mt_rand(3, 8), TRUE),
-            "description" => $faker->sentences(1, TRUE)
+            "description" => $faker->sentences(1, TRUE),
+            "picture" => "https://picsum.photos/400"
         ]);
     }
 
@@ -70,8 +71,10 @@ class TestDataSeeder extends Seeder
         return User::create([
             "name" => $faker->name,
             "email" => $email,
+            "phone" => $faker->phoneNumber,
             "password" => Hash::make("123456789"),
-            "avatar" => "https://api.adorable.io/avatars/285/" . $email
+            "avatar" => "https://api.adorable.io/avatars/285/" . $email,
+            "api_token" => Str::random(60),
         ]);
     }
 

@@ -24,6 +24,9 @@
     "sass-loader": "^7.1.0"
   },
   "dependencies": {
+    "notyf": "^3.0.4",
+    "query-string": "^6.8.3",
+    "react-input-mask": "^2.0.4",
     "react-router-dom": "^5.0.1",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^0.88.1"

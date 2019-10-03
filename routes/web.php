@@ -10,9 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/test', function(){
-    echo "TEST";
-});
-Route::get('/{path?}', function () {
+
+Route::get('/{reactRoutes?}', function () {
     return view('app');
-});
+})->where('reactRoutes','^((?!api).)*$');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -8,6 +8,10 @@ class Booking extends Model
 {
     protected $fillable = ['user_id', 'asset_id', 'from', 'to'];
 
+    public $timestamps = [
+        'from', 'to'
+    ];
+
     public function asset()
     {
         return $this->belongsTo('App\Asset');

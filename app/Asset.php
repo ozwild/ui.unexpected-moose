@@ -3,9 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Asset extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = ['name', 'description'];
 
     public function requests()
@@ -20,7 +23,7 @@ class Asset extends Model
 
     public function comments()
     {
-        return $this->morphMany('App\Comment','commentable');
+        return $this->morphMany('App\Comment', 'commentable');
     }
 
 }

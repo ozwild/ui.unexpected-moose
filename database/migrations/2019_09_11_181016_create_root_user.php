@@ -17,6 +17,7 @@ class CreateRootUser extends Migration
         $user->name = 'root';
         $user->email = 'aozikuma@gmail.com';
         $user->password = Hash::make('123456789');
+        $user->api_token = Str::random(60);
         $user->save();
     }
 

@@ -20,6 +20,7 @@ Route::middleware('auth:api')
         ->group(function () {
 
             Route::get('/', 'UserController@index');
+            Route::get('/list', 'UserController@list');
             Route::post('/', 'UserController@store');
             Route::get('/{user}', 'UserController@show');
             Route::put('/{user}', 'UserController@update');
@@ -31,6 +32,7 @@ Route::middleware('auth:api')
         ->group(function () {
 
             Route::get('/', 'AssetController@index');
+            Route::get('/list', 'AssetController@list');
             Route::post('/', 'AssetController@store');
             Route::get('/{asset}', 'AssetController@show');
             Route::put('/{asset}', 'AssetController@update');

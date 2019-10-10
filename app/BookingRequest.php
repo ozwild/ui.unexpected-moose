@@ -12,6 +12,11 @@ class BookingRequest extends Model
         'from', 'to'
     ];
 
+    /*public function getIsPendingAttribute($value)
+    {
+        return $value === 1 ? TRUE : FALSE;
+    }*/
+
     private function deriveBooking($comments = "", $commentTitle = "")
     {
         $booking = new Booking();

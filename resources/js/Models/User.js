@@ -1,4 +1,4 @@
-import UserService from "../Services/UserService";
+import UserService from "../Services/ModelServices/UserService";
 
 export default class User {
 

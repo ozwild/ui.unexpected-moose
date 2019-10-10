@@ -1,4 +1,4 @@
-import BookingService from "../Services/BookingService";
+import BookingService from "../Services/ModelServices/BookingService";
 
 export default class Booking {
 

@@ -11,19 +11,33 @@ class UserController extends Controller
     use ControllerHelper;
 
     /**
-     * Display a listing of the resource.
+     * Display a paginated listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $requests = User::orderBy('created_at', 'desc')
+        $users = User::orderBy('created_at', 'desc')
+            ->where('id', '!=', 1)
             ->with(['requests', 'bookings', 'comments', 'requests.comments', 'bookings.comments'])
             ->withCount(['requests' => function ($query) {
                 $query->where('is_pending', TRUE);
             }])
             ->paginate(10);
-        return response()->json($requests);
+        return response()->json($users);
+    }
+
+    /**
+     * Display a simple listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list()
+    {
+        $users = User::orderBy('created_at', 'asc')
+            ->where('id', '!=', 1)
+            ->get();
+        return response()->json($users);
     }
 
     /**

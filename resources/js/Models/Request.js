@@ -1,4 +1,4 @@
-import RequestService from "../Services/RequestService";
+import RequestService from "../Services/ModelServices/RequestService";
 
 export default class Request {
 
@@ -7,7 +7,7 @@ export default class Request {
     user_id = "";
     from = "";
     to = "";
-    is_pending = false;
+    is_pending = 1;
     created_at = "";
     updated_at = "";
 
@@ -18,7 +18,7 @@ export default class Request {
         Object.keys(data)
             .forEach(key => {
                 const value = data[key];
-                if (this.hasOwnProperty(key) && value) {
+                if (this.hasOwnProperty(key) && (value || value === 0)) {
                     this[key] = value;
                 }
             });

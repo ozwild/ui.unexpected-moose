@@ -9,7 +9,7 @@ class Asset extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'picture'];
 
     public function requests()
     {

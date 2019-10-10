@@ -30,6 +30,19 @@ class AssetController extends Controller
     }
 
     /**
+     * Display a simple listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list()
+    {
+        $assets = Asset::orderBy('created_at', 'asc')
+            ->where('id', '!=', 1)
+            ->get();
+        return response()->json($assets);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param Request $request

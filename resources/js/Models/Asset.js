@@ -1,4 +1,4 @@
-import AssetService from "../Services/AssetService";
+import AssetService from "../Services/ModelServices/AssetService";
 
 export default class Asset {
 

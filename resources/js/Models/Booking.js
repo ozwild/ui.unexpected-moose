@@ -1,56 +1,28 @@
 import BookingService from "../Services/ModelServices/BookingService";
+import Model from './Model';
+import User from "./User";
+import Asset from "./Asset";
 
-export default class Booking {
+export default class Booking extends Model {
 
-    id;
     asset_id = "";
     user_id = "";
     from = "";
     to = "";
-    created_at = "";
-    updated_at = "";
+    processed_at = "";
 
-    /**
-     * @param data {Object}
-     */
+    types = {
+        user: User,
+        asset: Asset
+    };
+
+    user = new User();
+    asset = new Asset();
+    service = new BookingService();
+
     constructor(data = {}) {
-        Object.keys(data)
-            .forEach(key => {
-                const value = data[key];
-                if (this.hasOwnProperty(key) && value) {
-                    this[key] = value;
-                }
-            });
-    }
-
-    /**
-     * @param data {Object}
-     * @returns {Booking}
-     */
-    fill(data) {
-        Object.keys(data)
-            .forEach(key => {
-                const value = data[key];
-                if (this.hasOwnProperty(key) && value) {
-                    this[key] = value;
-                }
-            });
-        return this;
-    }
-
-    /**
-     * @returns {boolean}
-     */
-    get isANewRecord() {
-        return !this.id;
-    }
-
-    /**
-     * @returns {Promise<AxiosResponse<any>|never>}
-     */
-    save() {
-        return BookingService.save(this)
-            .then(requestData => this.fill(requestData));
+        super(data);
+        this._fillWithData(data);
     }
 
 }

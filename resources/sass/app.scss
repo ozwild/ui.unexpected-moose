@@ -23,7 +23,8 @@ body {
   }
 
 }
-body.app{
+
+body.app {
   main {
     margin-top: 4em;
   }
@@ -53,3 +54,6 @@ body.app{
 }
 
 
+.ui.form .react-tel-input input[type=tel] {
+  padding-left: 3em;
+}

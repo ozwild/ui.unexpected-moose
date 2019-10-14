@@ -52,12 +52,13 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
-            'phone' => 'required|regex:/[0-9]{4}-[0-9]{4}/',
+            'phone' => 'phone:AUTO,US,GT',
             'avatar' => 'nullable|url',
         ]);
 
         $user = new User($this->filterRequest($request)->toArray());
         $user->password = \Hash::make(uniqid());
+        $user->api_token = \Str::random(60);
         $user->save();
         return response()->json($user);
     }
@@ -86,7 +87,7 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required|string',
             'avatar' => 'nullable|url',
-            'phone' => 'required|regex:/[0-9]{4}-[0-9]{4}/',
+            'phone' => 'phone:AUTO,US,GT',
             'email' => 'required|email|unique:users,email,' . $user->id
         ]);
 

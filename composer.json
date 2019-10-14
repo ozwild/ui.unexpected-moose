@@ -14,6 +14,7 @@
         "laravel/tinker": "^1.0",
         "laravel/ui": "^1.0",
         "nesbot/carbon": "2.3",
+        "propaganistas/laravel-phone": "^4.2",
         "silber/bouncer": "v1.0.0-rc.6"
     },
     "require-dev": {

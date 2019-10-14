@@ -5,7 +5,7 @@ import CRUDIndexTable from "../../CRUDIndexTable";
 import RequestService from "../../../Services/ModelServices/RequestService";
 
 const RequestIndexTable = (props) => {
-    const service = RequestService;
+    const service = new RequestService();
     const [status, setStatus] = useState("");
     const [refreshCounter, setRefreshCounter] = useState(0);
 

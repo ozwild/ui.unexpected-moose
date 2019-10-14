@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {Header, Button, Divider, Icon, Table, Pagination, Responsive, Segment, Message, Form} from "semantic-ui-react";
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
+import ModelService from "../Services/ModelServices/ModelService";
 
 const queryString = require('query-string');
 
@@ -128,7 +129,7 @@ CRUDIndexTable.defaultProps = {
 CRUDIndexTable.propTypes = {
     title: PropTypes.string,
     headers: PropTypes.array,
-    service: PropTypes.func.isRequired,
+    service: PropTypes.instanceOf(ModelService).isRequired,
     createOptions: PropTypes.object,
     rowTemplate: PropTypes.func.isRequired,
     refreshCounter: PropTypes.number

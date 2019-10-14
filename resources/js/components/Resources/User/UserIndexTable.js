@@ -5,12 +5,12 @@ import {Link} from "react-router-dom";
 import UserService from "../../../Services/ModelServices/UserService";
 
 const UserIndexTable = (props) => {
-    const service = UserService;
+    const service = new UserService();
     const [status, setStatus] = useState("");
     const [deletedResource, setDeletedResource] = useState(null);
     const [refreshCounter, setRefreshCounter] = useState(0);
 
-    const headers = ["Name", "Email", "Registration Date", "Options"];
+    const headers = ["Name", "Email", "Phone", "Registration Date", "Options"];
 
     const deleteResource = (resource) => {
         service.delete(resource)
@@ -45,6 +45,7 @@ const UserIndexTable = (props) => {
                 <Link to={`/users/${user.id}`}>{user.name}</Link>
             </Table.Cell>
             <Table.Cell>{user.email}</Table.Cell>
+            <Table.Cell>{user.phone}</Table.Cell>
             <Table.Cell>{user.created_at}</Table.Cell>
             <Table.Cell>
                 <Button.Group icon>

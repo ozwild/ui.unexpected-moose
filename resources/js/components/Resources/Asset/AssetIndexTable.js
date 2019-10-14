@@ -4,9 +4,9 @@ import CRUDIndexTable from "../../CRUDIndexTable";
 import {Link} from "react-router-dom";
 import AssetService from "../../../Services/ModelServices/AssetService";
 
-const AssetIndexTable = ({data}) => {
+const AssetIndexTable = (props) => {
 
-    const service = AssetService;
+    const service = new AssetService();
     const [status, setStatus] = useState("");
     const [deletedResource, setDeletedResource] = useState(null);
     const [refreshCounter, setRefreshCounter] = useState(0);

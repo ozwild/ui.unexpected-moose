@@ -19,6 +19,7 @@ class CreateBookingsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->timestamp('from')->nullable();
             $table->timestamp('to')->nullable();
+            $table->timestamp('processed_at')->nullable();
             $table->timestamps();
         });
     }

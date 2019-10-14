@@ -100,9 +100,9 @@ class TestDataSeeder extends Seeder
     {
         $diceRoll = mt_rand(0, 100);
         if ($diceRoll > 70)
-            $request->approve("Request approved by the admin");
+            $request->approve("Request approved by admin");
         if ($diceRoll > 25)
-            $request->reject("Request rejected by the admin");
+            $request->reject("Request rejected by admin");
     }
 
     /**

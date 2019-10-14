@@ -5,7 +5,7 @@ import CRUDIndexTable from "../../CRUDIndexTable";
 import BookingService from "../../../Services/ModelServices/BookingService";
 
 const BookingIndexTable = (props) => {
-    const service = BookingService;
+    const service = new BookingService();
     const [status, setStatus] = useState("");
     const [refreshCounter, setRefreshCounter] = useState(0);
 
@@ -36,7 +36,10 @@ const BookingIndexTable = (props) => {
             <Table.Cell>
                 <Link to={`/users/${booking.user.id}`}>{booking.user.name}</Link>
             </Table.Cell>
-            <Table.Cell>{`From: ${booking.from} To: ${booking.to}`}</Table.Cell>
+            <Table.Cell>
+                <div>{`From: ${booking.from}`}</div>
+                <div>{`To: ${booking.to}`}</div>
+            </Table.Cell>
             <Table.Cell>
                 <Button.Group icon>
                     <Link to={`/bookings/${booking.id}/edit`}><Button icon={'edit'}/></Link>

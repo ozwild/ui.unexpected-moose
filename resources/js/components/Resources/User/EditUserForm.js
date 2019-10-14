@@ -7,7 +7,7 @@ import useModelProvider from "../../../Hooks/useModelProvider";
 const EditUserForm = (props) => {
     const {onSave, match} = props;
     const {userId} = match.params;
-    const [{model}] = useModelProvider(UserService, userId);
+    const [{model}] = useModelProvider(new UserService(), userId);
 
     return (
         <UserForm onSave={onSave} user={model}/>

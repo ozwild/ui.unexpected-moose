@@ -16,6 +16,8 @@ import CreateAssetForm from "../Resources/Asset/CreateAssetForm";
 import EditAssetForm from "../Resources/Asset/EditAssetForm";
 import CreateRequestForm from "../Resources/Request/CreateRequestForm";
 import EditRequestForm from "../Resources/Request/EditRequestForm";
+import CreateBookingForm from "../Resources/Booking/CreateBookingForm";
+import EditBookingForm from "../Resources/Booking/EditBookingForm";
 
 const AuthenticatedApp = () => {
     return (
@@ -34,8 +36,8 @@ const AuthenticatedApp = () => {
             * Booking Routes
             */
             <AppLayout exact path='/bookings' component={BookingsIndex}/>
-            <AppLayout exact path='/bookings/create' component={CreateRequestForm}/>
-            <AppLayout exact path='/bookings/:requestId?/edit' component={EditRequestForm}/>
+            <AppLayout exact path='/bookings/create' component={CreateBookingForm}/>
+            <AppLayout exact path='/bookings/:bookingId?/edit' component={EditBookingForm}/>
 
             /**
             * Request Routes

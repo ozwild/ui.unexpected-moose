@@ -1,55 +1,17 @@
 import AssetService from "../Services/ModelServices/AssetService";
+import Model from "./Model";
 
-export default class Asset {
+export default class Asset extends Model {
 
-    id;
     name = "";
     description = "";
     picture = "";
-    created_at = "";
-    updated_at = "";
+    service = new AssetService();
 
-    /**
-     * @param data {Object}
-     */
     constructor(data = {}) {
-        Object.keys(data)
-            .forEach(key => {
-                const value = data[key];
-                if (this.hasOwnProperty(key) && value) {
-                    this[key] = value;
-                }
-            });
-    }
-
-    /**
-     * @param data {Object}
-     * @returns {Asset}
-     */
-    fill(data) {
-        Object.keys(data)
-            .forEach(key => {
-                const value = data[key];
-                if (this.hasOwnProperty(key) && value) {
-                    this[key] = value;
-                }
-            });
-        return this;
-    }
-
-    /**
-     * @returns {boolean}
-     */
-    get isANewRecord() {
-        return !this.id;
-    }
-
-    /**
-     * @returns {Promise<AxiosResponse<any>|never>}
-     */
-    save() {
-        return AssetService.save(this)
-            .then(assetData => this.fill(assetData));
+        super(data);
+        /*this._fillWithData = this._fillWithData.bind(this);*/
+        this._fillWithData(data);
     }
 
 }

@@ -41,3 +41,7 @@ body.app main {
   top: 63px;
 }
 
+.ui.form .react-tel-input input[type=tel] {
+  padding-left: 3em;
+}
+

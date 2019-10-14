@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import {Form, FormGroup, Input, Header, Message, Container, TextArea, Select} from "semantic-ui-react";
 import useForm from '../../../Hooks/useForm';
 import Request from "../../../Models/Request";
+import User from "../../../Models/User";
+import Asset from "../../../Models/Asset";
+import {Link} from "react-router-dom";
 
 const RequestForm = (props) => {
-    const {request, onSave} = props;
+    const {request, onSave, isLoading} = props;
     const users = props.users.map(user => {
         return {
             key: user.id,
@@ -36,7 +39,7 @@ const RequestForm = (props) => {
         });
     };
     const {
-        values, status, formErrors, setValues,
+        values, status, formErrors, setValues, setStatus,
         handleChange, handleSubmit
     } = useForm({
         initialValues: request,
@@ -44,12 +47,21 @@ const RequestForm = (props) => {
     });
 
     useEffect(() => setValues(request), [request.id]);
+    useEffect(() => setStatus(isLoading), [isLoading]);
 
     return (
         <Container text>
-            <Header as={"h2"}>{!values.id ? "New Request" : values.name}</Header>
+
+            <Header as={"h2"}>
+                {!values.id && "New Booking Request"}
+                {!!values.id && <>
+                    <Link to={`/users/${values.user.id}`}>{values.user.name}</Link>
+                    <span> booking request on </span>
+                    <Link to={`/users/${values.asset.id}`}>{values.asset.name}</Link>
+                </>}
+            </Header>
             <Form onSubmit={handleSubmit}
-                  {...(status === "loading" || props.isLoading && {loading: true})}
+                  {...(status === "loading" && {loading: true})}
                   {...(status === "success" && {success: true})}
                   {...(status === "error" && {error: true})}>
 
@@ -137,7 +149,7 @@ const RequestForm = (props) => {
                         name={"is_pending"}
                         label={"Pending for review?"}
                         onChange={handleChange}
-                        checked={values.is_pending === 1}
+                        checked={values.is_pending}
                         readOnly
                     />
                 </FormGroup>
@@ -164,9 +176,9 @@ RequestForm.defaultProps = {
 
 RequestForm.propTypes = {
     isLoading: PropTypes.bool,
-    request: PropTypes.object.isRequired,
-    users: PropTypes.array.isRequired,
-    assets: PropTypes.array.isRequired,
+    request: PropTypes.instanceOf(Request).isRequired,
+    users: PropTypes.arrayOf(PropTypes.instanceOf(User)).isRequired,
+    assets: PropTypes.arrayOf(PropTypes.instanceOf(Asset)).isRequired,
     onSave: PropTypes.func
 };
 

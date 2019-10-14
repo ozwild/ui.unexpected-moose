@@ -1,56 +1,23 @@
 import UserService from "../Services/ModelServices/UserService";
+import Model from "./Model";
 
-export default class User {
+export default class User extends Model {
 
-    id;
     name = "";
     email = "";
     phone = "";
     avatar = "";
-    created_at = "";
-    updated_at = "";
+    service = new UserService();
 
-    /**
-     * @param data {Object}
-     */
     constructor(data = {}) {
-        Object.keys(data)
-            .forEach(key => {
-                const value = data[key];
-                if (this.hasOwnProperty(key) && value) {
-                    this[key] = value;
-                }
-            });
+        super(data);
+        this._fillWithData(data);
     }
 
-    /**
-     * @param data {Object}
-     * @returns {User}
-     */
-    fill(data) {
-        Object.keys(data)
-            .forEach(key => {
-                const value = data[key];
-                if (this.hasOwnProperty(key) && value) {
-                    this[key] = value;
-                }
-            });
-        return this;
-    }
-
-    /**
-     * @returns {boolean}
-     */
-    get isANewRecord() {
-        return !this.id;
-    }
-
-    /**
-     * @returns {Promise<AxiosResponse<any>|never>}
-     */
-    save() {
-        return UserService.save(this)
-            .then(userData => this.fill(userData));
+    get data() {
+        let {service, phone, ...rest} = this;
+        phone = phone.replace(/([()])*/g, "");
+        return {phone, ...rest};
     }
 
 }

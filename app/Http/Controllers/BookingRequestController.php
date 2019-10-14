@@ -53,6 +53,7 @@ class BookingRequestController extends Controller
      */
     public function show(BookingRequest $bookingRequest)
     {
+        $bookingRequest->load('comments', 'asset', 'user');
         return response()->json($bookingRequest);
     }
 

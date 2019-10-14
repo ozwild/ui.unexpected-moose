@@ -11,7 +11,7 @@ const useModelListProvider = (provider, initialId) => {
             setIsLoading(true);
             try {
                 const result = await provider.list();
-                setList(result);
+                setList(result.map(datum => provider.build(datum)));
             } catch (error) {
                 setIsError(true);
             }

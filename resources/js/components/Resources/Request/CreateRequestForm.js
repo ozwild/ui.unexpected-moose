@@ -10,8 +10,8 @@ const CreateRequestForm = (props) => {
 
     const {onSave} = props;
     const request = new Request();
-    const [users, usersAreLoading] = useModelListProvider(UserService);
-    const [assets, assetsAreLoading] = useModelListProvider(AssetService);
+    const [users, usersAreLoading] = useModelListProvider(new UserService());
+    const [assets, assetsAreLoading] = useModelListProvider(new AssetService());
 
     return (
         <RequestForm onSave={onSave} request={request}

@@ -5,7 +5,7 @@ import useForm from '../../../Hooks/useForm';
 import Asset from '../../../Models/Asset';
 
 const AssetForm = (props) => {
-    const {asset, onSave} = props;
+    const {asset, onSave, isLoading} = props;
     const submitHandler = ({values, setValues, setStatus, setFormErrors}) => {
         setStatus("loading");
         asset.fill(values).save()
@@ -21,7 +21,7 @@ const AssetForm = (props) => {
         });
     };
     const {
-        values, status, formErrors, setValues,
+        values, status, formErrors, setValues, setStatus,
         handleChange, handleSubmit
     } = useForm({
         initialValues: asset,
@@ -29,6 +29,7 @@ const AssetForm = (props) => {
     });
 
     useEffect(() => setValues(asset), [asset.id]);
+    useEffect(() => setStatus(isLoading), [isLoading]);
 
     return (
         <Container text>
@@ -104,13 +105,15 @@ const AssetForm = (props) => {
 };
 
 AssetForm.defaultProps = {
+    isLoading: false,
     asset: new Asset(),
     onSave: () => {
     }
 };
 
 AssetForm.propTypes = {
-    asset: PropTypes.object.isRequired,
+    isLoading: PropTypes.bool,
+    asset: PropTypes.instanceOf(Asset).isRequired,
     onSave: PropTypes.func
 };
 

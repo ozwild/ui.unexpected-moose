@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Form, FormGroup, Input, Header, Message, Container} from "semantic-ui-react";
-import InputMask from 'react-input-mask';
 import useForm from '../../../Hooks/useForm';
 import User from '../../../Models/User'
+import PhoneInput from '../../PhoneInput';
 
 const UserForm = (props) => {
-    const {user, onSave} = props;
+    const {user, onSave, isLoading} = props;
     const submitHandler = ({values, setValues, setStatus, setFormErrors}) => {
         setStatus("loading");
         user.fill(values).save()
@@ -23,7 +23,7 @@ const UserForm = (props) => {
             });
     };
     const {
-        values, status, formErrors, setValues,
+        values, status, formErrors, setValues, setStatus,
         handleChange, handleSubmit
     } = useForm({
         initialValues: user,
@@ -31,6 +31,7 @@ const UserForm = (props) => {
     });
 
     useEffect(() => setValues(user), [user.id]);
+    useEffect(() => setStatus(isLoading), [isLoading]);
 
     return (
         <Container text>
@@ -93,12 +94,12 @@ const UserForm = (props) => {
                                     }
                                 })}/>
 
-                    <Form.Field control={Input}
-                                type={"tel"}
+                    <Form.Field control={PhoneInput}
                                 id={"phone"}
-                                label={"Phone"}
-                                name={"phone"}
+                                label={"Phone Number"}
+                                defaultCountry={"gt"}
                                 placeholder={"Phone Number"}
+                                name={'phone'}
                                 onChange={handleChange}
                                 value={values.phone}
                                 {...(formErrors['phone'] && {
@@ -108,27 +109,6 @@ const UserForm = (props) => {
                                     }
                                 })}
                     />
-
-                    {/*<Form.Field>
-                        <label htmlFor={"phone"}>Phone</label>
-                        <InputMask mask="9999-9999" maskChar=" " value={values.phone} onChange={handleChange}>
-                            {
-                                (inputProps) => <Form.Input
-                                    {...inputProps}
-                                    type={"tel"}
-                                    id={"phone"}
-                                    name="phone"
-                                    placeholder={"Phone"}
-                                    {...(formErrors['phone'] && {
-                                        error: {
-                                            content: formErrors['phone'][0],
-                                            pointing: 'below'
-                                        }
-                                    })}
-                                />
-                            }
-                        </InputMask>
-                    </Form.Field>*/}
 
                 </FormGroup>
 
@@ -145,12 +125,14 @@ const UserForm = (props) => {
 
 UserForm.defaultProps = {
     user: new User(),
+    isLoading: false,
     onSave: () => {
     }
 };
 
 UserForm.propTypes = {
-    user: PropTypes.object.isRequired,
+    isLoading: PropTypes.bool,
+    user: PropTypes.instanceOf(User).isRequired,
     onSave: PropTypes.func
 };
 

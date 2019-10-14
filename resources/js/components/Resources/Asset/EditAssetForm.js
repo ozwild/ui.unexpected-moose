@@ -7,7 +7,7 @@ import useModelProvider from "../../../Hooks/useModelProvider";
 const EditAssetForm = (props) => {
     const {onSave, match} = props;
     const {assetId} = match.params;
-    const [{model}] = useModelProvider(AssetService, assetId);
+    const [{model}] = useModelProvider(new AssetService(), assetId);
 
     return (
         <AssetForm onSave={onSave} asset={model}/>

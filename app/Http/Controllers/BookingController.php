@@ -50,6 +50,7 @@ class BookingController extends Controller
      */
     public function show(Booking $booking)
     {
+        $booking->load('comments', 'asset', 'user');
         return response()->json($booking);
     }
 

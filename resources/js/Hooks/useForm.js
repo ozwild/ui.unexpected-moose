@@ -9,7 +9,7 @@ const useForm = ({initialValues, onSubmit}) => {
 
     const [values, setValues] = useState(initialValues || {});
     const [touchedValues, setTouchedValues] = useState({});
-    const [status, setStatus] = useState("");
+    const [status, setStatus] = useState("loading");
     const [formErrors, setFormErrors] = useState({});
     /*const [errors, setErrors] = useState({});*/
 
@@ -19,7 +19,8 @@ const useForm = ({initialValues, onSubmit}) => {
         });
     };
 
-    const handleChange = (event, input) => {
+    const handleChange = (...args) => {
+        const [event, input] = args;
         const {value, checked, name} = input;
         setValues({
             ...values,

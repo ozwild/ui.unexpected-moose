@@ -1,2 +1,6 @@
+css/app.css
+js/app.js
+fonts/vendor/*
+images/vendor/*
 hot
 storage

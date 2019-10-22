@@ -1,70 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="51f5562b-23b3-4c15-a69a-e8da08a7ae54" name="Default Changelist" comment="Update many aspects, see changelist&#10;&#10;* Asset and User show view added&#10;* Pagination hook and table Added&#10;* User and Booking (server) services added&#10;* Temporarily deactivated throttle and authentication middlewares&#10;* Comment component added&#10;* Several changes to help support the listing of comments&#10;* Added robot user&#10;* Added a Moose logo file&#10;* Client service and model logic reworked&#10;* Attempted to implement mixins to distribute common logic. Will revisit later on.">
-      <change afterPath="$PROJECT_DIR$/app/Http/Services/BookingService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Services/UserService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/database/migrations/2019_09_11_181016_create_robot_user.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/moose.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/neon-moose.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/Hooks/usePagination.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/Models/Comment.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/Models/CommentableModel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/Models/Mixins/hasComments.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/Models/Mixins/hasRequests.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/Services/ModelServices/CommentService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/Services/ModelServices/RestorableModelService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/CommentControl.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/PaginatedTable.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Resources/Asset/AssetShow.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/components/Resources/User/UserShow.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Asset.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Asset.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Booking.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Booking.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/BookingRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/BookingRequest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Comment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Comment.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AssetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AssetController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BookingController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BookingController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BookingRequestController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BookingRequestController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_09_11_040443_create_comments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_09_11_040443_create_comments_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2019_09_11_181016_create_root_user.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2019_10_22_045132_create_root_user.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/TestDataSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/TestDataSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Hooks/useModelListProvider.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Hooks/useModelListProvider.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Hooks/useModelProvider.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Hooks/useModelProvider.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Models/Asset.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Models/Asset.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Models/Booking.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Models/Booking.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Models/Model.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Models/Model.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Models/Request.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Models/Request.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Models/User.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Services/APIService.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Services/APIService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Services/ModelServices/AssetService.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Services/ModelServices/AssetService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Services/ModelServices/BookingService.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Services/ModelServices/BookingService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Services/ModelServices/ModelService.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Services/ModelServices/ModelService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Services/ModelServices/RequestService.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Services/ModelServices/RequestService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/Services/ModelServices/UserService.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/Services/ModelServices/UserService.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Auth/AuthenticatedApp.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Auth/AuthenticatedApp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/CRUDIndexTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/CRUDIndexTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Footer.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Footer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Resources/Asset/AssetIndexTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Resources/Asset/AssetIndexTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Resources/Asset/EditAssetForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Resources/Asset/EditAssetForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Resources/Booking/BookingIndexTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Resources/Booking/BookingIndexTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Resources/Booking/CreateBookingForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Resources/Booking/CreateBookingForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Resources/Booking/EditBookingForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Resources/Booking/EditBookingForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Resources/Request/CreateRequestForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Resources/Request/CreateRequestForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Resources/Request/EditRequestForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Resources/Request/EditRequestForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Resources/Request/RequestIndexTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Resources/Request/RequestIndexTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Resources/User/EditUserForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Resources/User/EditUserForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/components/Resources/User/UserIndexTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/components/Resources/User/UserIndexTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+    <list default="true" id="51f5562b-23b3-4c15-a69a-e8da08a7ae54" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/public/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/public/.gitignore" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -114,7 +52,11 @@
       </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/.gitignore">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="87">
+              <caret line="3" column="15" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -379,40 +321,6 @@
             <path>
               <item name="unexpected-moose" type="b2602c69:ProjectViewProjectNode" />
               <item name="unexpected-moose" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="fonts" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="unexpected-moose" type="b2602c69:ProjectViewProjectNode" />
-              <item name="unexpected-moose" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="fonts" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="unexpected-moose" type="b2602c69:ProjectViewProjectNode" />
-              <item name="unexpected-moose" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="fonts" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-              <item name="semantic-ui-css" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="unexpected-moose" type="b2602c69:ProjectViewProjectNode" />
-              <item name="unexpected-moose" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="unexpected-moose" type="b2602c69:ProjectViewProjectNode" />
-              <item name="unexpected-moose" type="462c0819:PsiDirectoryNode" />
-              <item name="public" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="unexpected-moose" type="b2602c69:ProjectViewProjectNode" />
-              <item name="unexpected-moose" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -469,22 +377,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope">
-        <subPane subId="Scope 'Default Changelist'; set:Default Changelist; class com.intellij.packageDependencies.ChangeListScope">
-          <expand>
-            <path>
-              <item name="unexpected-moose" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="E:\www\unexpected-moose" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-            <path>
-              <item name="unexpected-moose" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="E:\www\unexpected-moose" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="public" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -571,7 +464,7 @@
       <workItem from="1571001264783" duration="12838000" />
       <workItem from="1571108557629" duration="16193000" />
       <workItem from="1571335647149" duration="2118000" />
-      <workItem from="1571706551033" duration="31313000" />
+      <workItem from="1571706551033" duration="31379000" />
     </task>
     <task id="LOCAL-00001" summary="Updated CRUDs, authentication, layouts. Add models and services missing">
       <created>1570092436563</created>
@@ -594,11 +487,18 @@
       <option name="project" value="LOCAL" />
       <updated>1571017423152</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Update many aspects, see changelist&#10;&#10;* Asset and User show view added&#10;* Pagination hook and table Added&#10;* User and Booking (server) services added&#10;* Temporarily deactivated throttle and authentication middlewares&#10;* Comment component added&#10;* Several changes to help support the listing of comments&#10;* Added robot user&#10;* Added a Moose logo file&#10;* Client service and model logic reworked&#10;* Attempted to implement mixins to distribute common logic. Will revisit later on.">
+      <created>1571724876498</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1571724876498</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="259410000" />
+    <option name="totallyTimeSpent" value="259476000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -657,7 +557,8 @@
     <MESSAGE value="Updated CRUDs, authentication, layouts. Add models and services missing" />
     <MESSAGE value="Update js resources reorganized&#10;Added Asset and Request forms&#10;Added ModelListProvider hook&#10;Added CacheService" />
     <MESSAGE value="Update js resources reorganized&#10;Added Booking form&#10;Update Model and Service pattern&#10;Added select and phone controls" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update js resources reorganized&#10;Added Booking form&#10;Update Model and Service pattern&#10;Added select and phone controls" />
+    <MESSAGE value="Update many aspects, see changelist&#10;&#10;* Asset and User show view added&#10;* Pagination hook and table Added&#10;* User and Booking (server) services added&#10;* Temporarily deactivated throttle and authentication middlewares&#10;* Comment component added&#10;* Several changes to help support the listing of comments&#10;* Added robot user&#10;* Added a Moose logo file&#10;* Client service and model logic reworked&#10;* Attempted to implement mixins to distribute common logic. Will revisit later on." />
+    <option name="LAST_COMMIT_MESSAGE" value="Update many aspects, see changelist&#10;&#10;* Asset and User show view added&#10;* Pagination hook and table Added&#10;* User and Booking (server) services added&#10;* Temporarily deactivated throttle and authentication middlewares&#10;* Comment component added&#10;* Several changes to help support the listing of comments&#10;* Added robot user&#10;* Added a Moose logo file&#10;* Client service and model logic reworked&#10;* Attempted to implement mixins to distribute common logic. Will revisit later on." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/resources/js/components/Resources/User/EditUserForm.js">
@@ -1056,7 +957,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="3" column="15" selection-start-line="3" selection-start-column="15" selection-end-line="3" selection-end-column="15" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>

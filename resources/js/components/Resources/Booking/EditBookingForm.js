@@ -10,12 +10,12 @@ import BookingForm from "./BookingForm";
 const EditBookingForm = (props) => {
     const {onSave, match} = props;
     const {bookingId} = match.params;
-    const [{model}] = useModelProvider(new BookingService(), bookingId);
-    const [users, usersAreLoading] = useModelListProvider(new UserService());
-    const [assets, assetsAreLoading] = useModelListProvider(new AssetService());
+    const [booking] = useModelProvider(BookingService, bookingId);
+    const [users, usersAreLoading] = useModelListProvider(UserService);
+    const [assets, assetsAreLoading] = useModelListProvider(AssetService);
 
     return (
-        <BookingForm onSave={onSave} booking={model}
+        <BookingForm onSave={onSave} booking={booking}
                      users={users}
                      assets={assets}
                      isLoading={usersAreLoading || assetsAreLoading}

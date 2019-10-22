@@ -4,6 +4,8 @@ use Illuminate\Database\Seeder;
 use App\Asset;
 use App\BookingRequest;
 use App\Booking;
+use App\Http\Services\UserService;
+use App\Http\Services\BookingService;
 use App\User;
 use Carbon\Carbon;
 use Faker\Factory;
@@ -57,18 +59,33 @@ class TestDataSeeder extends Seeder
     private function createAsset()
     {
         $faker = Factory::create();
-        return Asset::create([
+        $asset = Asset::create([
             "name" => $faker->words(mt_rand(3, 8), TRUE),
             "description" => $faker->sentences(1, TRUE),
             "picture" => "https://picsum.photos/400"
         ]);
+
+        collect()
+            ->pad(mt_rand(0, 25), null)
+            ->each(function () use ($asset, $faker) {
+
+                $asset->comments()->create([
+                    "user_id" => UserService::getRobotUser()->id,
+                    "title" => $faker->words(mt_rand(3, 8), TRUE),
+                    "body" => $faker->text,
+                ]);
+
+            });
+
+        return $asset;
+
     }
 
     private function createUser()
     {
         $faker = Factory::create();
         $email = $faker->email;
-        return User::create([
+        $user = User::create([
             "name" => $faker->name,
             "email" => $email,
             "phone" => $faker->phoneNumber,
@@ -76,6 +93,21 @@ class TestDataSeeder extends Seeder
             "avatar" => "https://api.adorable.io/avatars/285/" . $email,
             "api_token" => Str::random(60),
         ]);
+
+        collect()
+            ->pad(mt_rand(0, 25), null)
+            ->each(function () use ($user, $faker) {
+
+                $user->comments()->create([
+                    "user_id" => UserService::getRobotUser()->id,
+                    "title" => $faker->words(mt_rand(3, 8), TRUE),
+                    "body" => $faker->text,
+                ]);
+
+            });
+
+        return $user;
+
     }
 
     private function createBookingRequest(User $user, Asset $asset)
@@ -90,6 +122,7 @@ class TestDataSeeder extends Seeder
             "to" => $to
         ]);
         $request->comments()->create([
+            "user_id" => UserService::getRobotUser()->id,
             "title" => $faker->words(mt_rand(3, 8), TRUE),
             "body" => $faker->text,
         ]);
@@ -100,9 +133,9 @@ class TestDataSeeder extends Seeder
     {
         $diceRoll = mt_rand(0, 100);
         if ($diceRoll > 70)
-            $request->approve("Request approved by admin");
+            BookingService::approve($request, "Request approved automatically");
         if ($diceRoll > 25)
-            $request->reject("Request rejected by admin");
+            BookingService::approve($request, "Request rejected automatically");
     }
 
     /**

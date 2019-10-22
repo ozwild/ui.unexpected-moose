@@ -10,12 +10,12 @@ import RequestForm from "./RequestForm";
 const EditRequestForm = (props) => {
     const {onSave, match} = props;
     const {requestId} = match.params;
-    const [{model}] = useModelProvider(new RequestService(), requestId);
-    const [users, usersAreLoading] = useModelListProvider(new UserService());
-    const [assets, assetsAreLoading] = useModelListProvider(new AssetService());
+    const [request] = useModelProvider(RequestService, requestId);
+    const [users, usersAreLoading] = useModelListProvider(UserService);
+    const [assets, assetsAreLoading] = useModelListProvider(AssetService);
 
     return (
-        <RequestForm onSave={onSave} request={model}
+        <RequestForm onSave={onSave} request={request}
                      users={users}
                      assets={assets}
                      isLoading={usersAreLoading || assetsAreLoading}

@@ -5,7 +5,7 @@ import CRUDIndexTable from "../../CRUDIndexTable";
 import BookingService from "../../../Services/ModelServices/BookingService";
 
 const BookingIndexTable = (props) => {
-    const service = new BookingService();
+    const service = BookingService;
     const [status, setStatus] = useState("");
     const [refreshCounter, setRefreshCounter] = useState(0);
 

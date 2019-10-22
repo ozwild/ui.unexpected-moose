@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 import UserService from "../../../Services/ModelServices/UserService";
 
 const UserIndexTable = (props) => {
-    const service = new UserService();
+    const service = UserService;
     const [status, setStatus] = useState("");
     const [deletedResource, setDeletedResource] = useState(null);
     const [refreshCounter, setRefreshCounter] = useState(0);
@@ -16,7 +16,7 @@ const UserIndexTable = (props) => {
         service.delete(resource)
             .then(() => {
                 setRefreshCounter(refreshCounter + 1);
-                setDeletedResource(user);
+                setDeletedResource(resource);
                 setStatus("deleted");
             });
     };

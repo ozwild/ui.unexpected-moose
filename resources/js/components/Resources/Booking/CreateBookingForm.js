@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import UserService from "../../../Services/ModelServices/UserService";
 import useModelListProvider from "../../../Hooks/useModelListProvider";
@@ -10,8 +10,8 @@ const CreateBookingForm = (props) => {
 
     const {onSave} = props;
     const booking = new Booking();
-    const [users, usersAreLoading] = useModelListProvider(new UserService());
-    const [assets, assetsAreLoading] = useModelListProvider(new AssetService());
+    const [users, usersAreLoading] = useModelListProvider(UserService);
+    const [assets, assetsAreLoading] = useModelListProvider(AssetService);
 
     return (
         <BookingForm onSave={onSave} request={booking}

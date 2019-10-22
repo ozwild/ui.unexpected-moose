@@ -1,10 +1,18 @@
 import Request from "../../Models/Request";
 import ModelService from "./ModelService";
 
-export default class RequestService extends ModelService{
+export default class RequestService extends ModelService {
 
-    modelClass = Request;
-    prefix = 'requests';
-    apiPath = '/api/requests';
+    static get model() {
+        return Request;
+    }
+
+    static get prefix() {
+        return 'requests';
+    }
+
+    static get apiPath() {
+        return '/api/requests';
+    }
 
 }

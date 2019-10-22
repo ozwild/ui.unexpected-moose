@@ -10,16 +10,28 @@ use Illuminate\Http\Request;
 class BookingController extends Controller
 {
     use ControllerHelper;
+
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $bookings = Booking::orderBy('created_at', 'desc')
-            ->with('comments', 'asset', 'user')
-            ->paginate(10);
+        $query = Booking::orderBy('created_at', 'desc')
+            ->with('comments', 'asset', 'user');
+
+        if ($assetId = $request->get('asset')) {
+            $query->where('asset_id', $assetId);
+        }
+
+        if ($userId = $request->get('user')) {
+            $query->where('user_id', $userId);
+        }
+
+        $bookings = $query->paginate(10);
+
         return response()->json($bookings);
     }
 

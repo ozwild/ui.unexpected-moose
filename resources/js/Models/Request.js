@@ -18,7 +18,7 @@ export default class Request extends Model {
 
     user = new User();
     asset = new Asset();
-    service = new RequestService();
+    service = RequestService;
 
     constructor(data = {}) {
         super(data);

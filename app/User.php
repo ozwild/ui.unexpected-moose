@@ -34,6 +34,13 @@ class User extends Authenticatable
     ];
 
     /**
+     * @var array
+     */
+    protected $appends = [
+        'morph_class'
+    ];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -41,6 +48,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return string
+     */
+    public function getMorphClassAttribute()
+    {
+        return $this->getMorphClass();
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -64,6 +79,14 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->morphMany('App\Comment', 'commentable');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function commentsMade()
+    {
+        return $this->hasMany('App\Comment');
     }
 
 }

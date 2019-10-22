@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Services\UserService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +13,21 @@ class BookingRequest extends Model
     protected $casts = [
         'is_pending' => 'boolean'
     ];
+
+    /**
+     * @var array
+     */
+    protected $appends = [
+        'morph_class'
+    ];
+
+    /**
+     * @return string
+     */
+    public function getMorphClassAttribute()
+    {
+        return $this->getMorphClass();
+    }
 
     /**
      * @param $value
@@ -49,70 +65,6 @@ class BookingRequest extends Model
     public function setToAttribute($value)
     {
         $this->attributes['to'] = (new Carbon($value))->toDateTimeString();
-    }
-
-    /**
-     * @param string $comments
-     * @param string $commentTitle
-     * @return Booking
-     */
-    private function deriveBooking($comments = "", $commentTitle = "")
-    {
-        $booking = new Booking();
-        $booking->fill([
-            "from" => $this->from,
-            "to" => $this->to,
-            "asset_id" => $this->asset_id,
-            "user_id" => $this->user_id,
-            "processed_at" => Carbon::now()
-        ]);
-        $booking->save();
-
-        if ($comments) {
-            $booking->comments()->create([
-                "body" => $comments,
-            ]);
-        }
-
-        return $booking;
-    }
-
-    /**
-     * @param string $comments
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function approve($comments = "")
-    {
-        try {
-            $derivedBooking = $this->deriveBooking($comments, "Booking Approved");
-            $this->is_pending = FALSE;
-            $this->save();
-            return response()->json($derivedBooking);
-        } catch (\Exception $exception) {
-            return response()->json([
-                "message" => $exception->getMessage(),
-                "error" => $exception->getCode()
-            ]);
-        }
-    }
-
-    /**
-     * @param string $comments
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function reject($comments = "")
-    {
-        try {
-            $derivedBooking = $this->deriveBooking($comments, "Booking Rejected");
-            $this->is_pending = FALSE;
-            $this->save();
-            return response()->json($derivedBooking);
-        } catch (\Exception $exception) {
-            return response()->json([
-                "message" => $exception->getMessage(),
-                "error" => $exception->getCode()
-            ]);
-        }
     }
 
     /**

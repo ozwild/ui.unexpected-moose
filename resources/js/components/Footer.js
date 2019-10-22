@@ -57,7 +57,7 @@ class Footer extends Component {
                         </Grid.Row>
                     </Grid>
                     <Divider inverted section/>
-                    <Image src='/logo.png' centered size='mini'/>
+                    <Image src='/images/neon-moose.png' centered size='small'/>
                     <List horizontal inverted divided link size='small'>
                         <List.Item as='a' href='#'>
                             Site Map

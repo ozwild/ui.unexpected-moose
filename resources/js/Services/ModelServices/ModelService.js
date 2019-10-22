@@ -2,17 +2,27 @@ import CacheService from "../CacheService";
 import Model from "../../Models/Model";
 import APIService from "../APIService";
 
-export default class ModelService {
+const queryString = require('query-string');
 
-    prefix = 'test';
-    modelClass = Model;
-    apiPath = '/api/test';
+class ModelService {
+
+    static get model() {
+        return Model;
+    }
+
+    static get prefix() {
+        return 'test';
+    }
+
+    static get apiPath() {
+        return '/api/test';
+    }
 
     /**
      * @param query {string}
      * @returns {Promise<string|SpeechRecognitionResultList>|null}
      */
-    async search(query) {
+    static async search(query) {
         if (!query) {
             return;
         }
@@ -25,7 +35,7 @@ export default class ModelService {
      * @param id
      * @returns {Promise<Model>}
      */
-    async get(id) {
+    static async get(id) {
         const response = await APIService.get(`${this.apiPath}/${id}`);
         return this.build(response);
     }
@@ -34,7 +44,7 @@ export default class ModelService {
      *
      * @returns {Promise<void|undefined>}
      */
-    async list() {
+    static async list() {
 
         const cacheKey = `${this.prefix}_list`;
 
@@ -65,10 +75,12 @@ export default class ModelService {
     /**
      *
      * @param page
+     * @param otherOptions
      * @returns {Promise<void>}
      */
-    async all(page = 1) {
-        return await APIService.get(`${this.apiPath}?page=${page}`);
+    static async all(page = 1, otherOptions = {}) {
+        const query = queryString.stringify(Object.assign({page}, otherOptions));
+        return await APIService.get(`${this.apiPath}?${query}`);
     }
 
     /**
@@ -76,25 +88,27 @@ export default class ModelService {
      * @param data
      * @returns {Model}
      */
-    build(data) {
-        return this.modelClass.new(data);
+    static build(data) {
+        return this.model.new(data);
     }
 
     /**
+     *
      * @param model {Model}
-     * @returns {Promise<AxiosResponse<any>|never>}
+     * @returns {*}
      */
-    save(model) {
+    static save(model) {
         return model.isANewRecord ?
-            this.#store(model.data) :
-            this.#update(model.data);
+            this.#store(model) :
+            this.#update(model);
     }
 
     /**
      *
      * @param serverResponse
+     * @private
      */
-    _processResponseErrors(serverResponse) {
+    static _processResponseErrors(serverResponse) {
         const response = serverResponse.response.data;
         response.messages = Object.values(response.errors)
             .reduce((reduction, errorMessages) => {
@@ -104,8 +118,13 @@ export default class ModelService {
     }
 
 
-    #store(model) {
-        return APIService.post(`${this.apiPath}`, model)
+    /**
+     *
+     * @param model {Model}
+     * @returns {Promise<void | never>}
+     */
+    static #store(model) {
+        return APIService.post(`${this.apiPath}`, model.data)
             .catch(error => {
                 this._processResponseErrors(error);
             });
@@ -113,17 +132,22 @@ export default class ModelService {
 
     /**
      *
-     * @param model
+     * @param model {Model}
      * @returns {Promise<* | never>}
      */
-    #update(model) {
-        return APIService.put(`${this.apiPath}/${model.id}`, model)
+    static #update(model) {
+        return APIService.put(`${this.apiPath}/${model.id}`, model.data)
             .catch(error => {
                 this._processResponseErrors(error);
             });
     }
 
-    delete(model) {
+    /**
+     *
+     * @param model {Model}
+     * @returns {Promise<Promise<AxiosResponse<T>> | never>}
+     */
+    static delete(model) {
         return APIService.delete(`${this.apiPath}/${model.id}`)
             .then(response => {
                 /**
@@ -132,13 +156,6 @@ export default class ModelService {
             });
     }
 
-    restore(model) {
-        return APIService.post(`'${this.apiPath}/${model.id}`, model)
-            .then(response => {
-                /**
-                 * @todo reinstate on cached data without extending cache expiration
-                 */
-            });
-    }
-
 }
+
+export default ModelService;

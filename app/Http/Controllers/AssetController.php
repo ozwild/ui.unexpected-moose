@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Asset;
 use App\Http\Traits\ControllerHelper;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -69,6 +70,12 @@ class AssetController extends Controller
      */
     public function show(Asset $asset)
     {
+        $asset->loadCount([
+            'requests' => function (Builder $builder) {
+                return $builder->where('is_pending', TRUE);
+            },
+            'bookings'
+        ]);
         return response()->json($asset);
     }
 
@@ -106,13 +113,17 @@ class AssetController extends Controller
     }
 
     /**
-     * @param Asset $asset
+     * @param $assetId
      * @return JsonResponse
      */
-    public function restore(Asset $asset)
+    public function restore($assetId)
     {
+        $asset = Asset::onlyTrashed()->where('id', $assetId)->first();
+        if (!$asset) {
+            abort(404);
+        }
         $asset->restore();
-        return response()->json();
+        return response()->json(["restored" => !$asset->trashed()]);
     }
 
 }

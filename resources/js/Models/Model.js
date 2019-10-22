@@ -5,7 +5,9 @@ class Model {
     id;
     created_at = "";
     updated_at = "";
-    service = new ModelService();
+    morph_class = "";
+
+    service = ModelService;
 
     types = {};
 

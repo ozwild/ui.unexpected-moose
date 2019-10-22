@@ -1,20 +1,18 @@
 import User from "../../Models/User";
-import ModelService from "./ModelService";
-import APIService from "../APIService";
+import RestorableModelService from "./RestorableModelService";
 
-export default class UserService extends ModelService {
+export default class UserService extends RestorableModelService {
 
-    modelClass = User;
-    prefix = 'users';
-    apiPath = '/api/users';
+    static get model() {
+        return User;
+    }
 
-    restore(user) {
-        APIService.post(`${this.apiPath}/${user.id}`)
-            .then(response => {
-                /**
-                 * @todo reinstate on cached data without extending cache expiration
-                 */
-            });
+    static get prefix() {
+        return 'users';
+    }
+
+    static get apiPath() {
+        return '/api/users';
     }
 
 }

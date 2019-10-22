@@ -35,7 +35,7 @@ class APIService {
         return data;
     }
 
-    static async delete(){
+    static async delete(url){
         const {authHTTPRequestHeader} = AuthService;
         return axios.delete(url, authHTTPRequestHeader);
     }

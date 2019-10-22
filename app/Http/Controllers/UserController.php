@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Traits\ControllerHelper;
 use App\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -19,10 +20,10 @@ class UserController extends Controller
     {
         $users = User::orderBy('created_at', 'desc')
             ->where('id', '!=', 1)
-            ->with(['requests', 'bookings', 'comments', 'requests.comments', 'bookings.comments'])
             ->withCount(['requests' => function ($query) {
                 $query->where('is_pending', TRUE);
             }])
+            ->with(['comments', 'requests.comments', 'bookings.comments'])
             ->paginate(10);
         return response()->json($users);
     }
@@ -71,6 +72,12 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $user->loadCount([
+            'requests' => function (Builder $builder) {
+                return $builder->where('is_pending', TRUE);
+            },
+            'bookings'
+        ]);
         return response()->json($user);
     }
 
@@ -109,12 +116,18 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $user
+     * @param $userId
      * @return \Illuminate\Http\JsonResponse
      */
-    public function restore(User $user)
+    public function restore($userId)
     {
+        $user = User::onlyTrashed()->where('id', $userId)->first();
+        if (!$user) {
+            abort(404);
+        }
         $user->restore();
-        return response()->json();
+        return response()->json([
+            "restored" => !$user->trashed()
+        ]);
     }
 }

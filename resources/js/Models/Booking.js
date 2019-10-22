@@ -18,7 +18,7 @@ export default class Booking extends Model {
 
     user = new User();
     asset = new Asset();
-    service = new BookingService();
+    service = BookingService;
 
     constructor(data = {}) {
         super(data);

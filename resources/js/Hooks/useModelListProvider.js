@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-const useModelListProvider = (provider, initialId) => {
+const useModelListProvider = (provider) => {
     const [list, setList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);

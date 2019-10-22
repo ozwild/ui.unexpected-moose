@@ -1,25 +1,19 @@
 import Asset from '../../Models/Asset';
-import ModelService from "./ModelService";
-import APIService from "../APIService";
+import RestorableModelService from "./RestorableModelService";
 
-export default class AssetService extends ModelService {
+export default class AssetService extends RestorableModelService {
 
-    modelClass = Asset;
-    prefix = 'assets';
-    apiPath = '/api/assets';
-
-    /**
-     *
-     * @param asset {Asset}
-     * @returns {Promise<AxiosResponse<T>>}
-     */
-    restore(asset) {
-        APIService.post(`${this.apiPath}/${asset.id}`)
-            .then(response => {
-                /**
-                 * @todo reinstate on cached data without extending cache expiration
-                 */
-            });
+    static get model() {
+        return Asset;
     }
+
+    static get prefix() {
+        return 'assets';
+    }
+
+    static get apiPath() {
+        return '/api/assets';
+    }
+
 
 }

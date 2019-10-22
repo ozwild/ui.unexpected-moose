@@ -6,7 +6,7 @@ import AssetService from "../../../Services/ModelServices/AssetService";
 
 const AssetIndexTable = (props) => {
 
-    const service = new AssetService();
+    const service = AssetService;
     const [status, setStatus] = useState("");
     const [deletedResource, setDeletedResource] = useState(null);
     const [refreshCounter, setRefreshCounter] = useState(0);
@@ -17,7 +17,7 @@ const AssetIndexTable = (props) => {
         service.delete(resource)
             .then(() => {
                 setRefreshCounter(refreshCounter + 1);
-                setDeletedResource(user);
+                setDeletedResource(resource);
                 setStatus("deleted");
             });
     };
@@ -50,7 +50,7 @@ const AssetIndexTable = (props) => {
             <Table.Cell>
                 <Button.Group icon>
                     <Link to={`/assets/${asset.id}/edit`}><Button icon={'edit'}/></Link>
-                    <Button icon={'trash'} onClick={() => deleteResource(user)}/>
+                    <Button icon={'trash'} onClick={() => deleteResource(asset)}/>
                 </Button.Group>
             </Table.Cell>
         </Table.Row>

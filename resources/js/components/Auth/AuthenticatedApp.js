@@ -18,6 +18,8 @@ import CreateRequestForm from "../Resources/Request/CreateRequestForm";
 import EditRequestForm from "../Resources/Request/EditRequestForm";
 import CreateBookingForm from "../Resources/Booking/CreateBookingForm";
 import EditBookingForm from "../Resources/Booking/EditBookingForm";
+import AssetShow from "../Resources/Asset/AssetShow";
+import UserShow from "../Resources/User/UserShow";
 
 const AuthenticatedApp = () => {
     return (
@@ -31,6 +33,7 @@ const AuthenticatedApp = () => {
             <AppLayout exact path='/assets' component={AssetIndex}/>
             <AppLayout exact path='/assets/create' component={CreateAssetForm}/>
             <AppLayout exact path='/assets/:assetId?/edit' component={EditAssetForm}/>
+            <AppLayout exact path={'/assets/:assetId?'} component={AssetShow}/>
 
             /**
             * Booking Routes
@@ -53,6 +56,7 @@ const AuthenticatedApp = () => {
             <AppLayout exact path='/users' component={UserIndex}/>
             <AppLayout exact path='/users/create' component={CreateUserForm}/>
             <AppLayout exact path='/users/:userId?/edit' component={EditUserForm}/>
+                <AppLayout exact path={'/users/:userId?'} component={UserShow}/>
 
             <ErrorLayout component={NotFoundErrorPage}/>
         </Switch>

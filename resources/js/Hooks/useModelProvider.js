@@ -26,7 +26,7 @@ const useModelProvider = (provider, initialId) => {
         }
     }, [id]);
 
-    return [{model, isLoading, isError}, setId];
+    return [model, isLoading, isError, setId];
 };
 
 export default useModelProvider;

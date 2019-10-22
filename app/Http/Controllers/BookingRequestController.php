@@ -14,13 +14,27 @@ class BookingRequestController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $requests = BookingRequest::orderBy('created_at', 'desc')
-            ->with('comments', 'asset', 'user')
-            ->paginate(10);
+        $query = BookingRequest::orderBy('created_at', 'desc')
+            ->with('comments', 'asset', 'user');
+
+        if ($pendingOnly = $request->get('pending_only')) {
+            $query->where('is_pending', TRUE);
+        }
+
+        if ($assetId = $request->get('asset')) {
+            $query->where('asset_id', $assetId);
+        }
+
+        if ($userId = $request->get('user')) {
+            $query->where('user_id', $userId);
+        }
+
+        $requests = $query->paginate(10);
         return response()->json($requests);
     }
 
@@ -38,7 +52,7 @@ class BookingRequestController extends Controller
             'user_id' => 'required|exists:users,id',
             'from' => 'required|date',
             'to' => 'required|date',
-            'is_pending'=>'boolean'
+            'is_pending' => 'boolean'
         ]);
 
         $bookingRequest = BookingRequest::create($this->filterRequest($request)->toArray());
@@ -72,7 +86,7 @@ class BookingRequestController extends Controller
             'user_id' => 'required|exists:users,id',
             'from' => 'required|date',
             'to' => 'required|date',
-            'is_pending'=>'boolean'
+            'is_pending' => 'boolean'
         ]);
         $bookingRequest->update($this->filterRequest($request)->toArray());
         return response()->json($bookingRequest);

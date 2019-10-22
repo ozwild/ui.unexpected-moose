@@ -10,6 +10,21 @@ class Booking extends Model
     protected $fillable = ['user_id', 'asset_id', 'from', 'to', 'processed_at'];
 
     /**
+     * @var array
+     */
+    protected $appends = [
+        'morph_class'
+    ];
+
+    /**
+     * @return string
+     */
+    public function getMorphClassAttribute()
+    {
+        return $this->getMorphClass();
+    }
+
+    /**
      * @param $value
      * @return mixed
      * @throws \Exception
